@@ -1,2 +1,1 @@
-# Pandas-lib.
-Pandas libraries
+# Pandas libraries
