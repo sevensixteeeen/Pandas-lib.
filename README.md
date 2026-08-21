@@ -1,4 +1,4 @@
-# Pandas — README
+# Pandas README
 
 Pandas is Python's core library for working with **tabular data** (rows & columns, like Excel or SQL tables). It's built on NumPy and is the backbone of almost every data pipeline, ML preprocessing step, and analytics script in Python.
 
@@ -11,7 +11,7 @@ pip install pandas
 ```
 
 ```python
-import pandas as pd   # universal alias — always use this
+import pandas as pd   # universal alias, always use this
 ```
 
 ---
@@ -33,7 +33,7 @@ df = pd.DataFrame({
 })
 ```
 
-A `DataFrame` is just a dict of `Series` sharing the same index — that mental model explains most of pandas' behavior.
+A `DataFrame` is just a dict of `Series` sharing the same index. That mental model explains most of pandas' behavior.
 
 ---
 
@@ -50,7 +50,7 @@ df.columns       # column names
 df.dtypes        # data type per column
 ```
 
-**Efficiency tip:** for large CSVs, specify dtypes upfront — this avoids pandas guessing and re-casting every column, which is slow.
+**Efficiency tip:** for large CSVs, specify dtypes upfront. This avoids pandas guessing and re-casting every column, which is slow.
 ```python
 df = pd.read_csv("data.csv", dtype={"age": "int32", "city": "category"})
 ```
@@ -70,7 +70,7 @@ df.loc[df["age"] > 27]    # filter rows (boolean mask)
 df.loc[df["city"] == "Delhi", "name"]   # filter + pick column
 ```
 
-⚠️ **Rule of thumb:** always use `.loc` / `.iloc` for selection+assignment together. Chained indexing like `df[df.age > 27]["name"] = "x"` silently fails or warns — it's the #1 pandas beginner bug.
+⚠️ **Rule of thumb:** always use `.loc` / `.iloc` for selection+assignment together. Chained indexing like `df[df.age > 27]["name"] = "x"` silently fails or warns. It's the #1 pandas beginner bug.
 
 ---
 
@@ -97,12 +97,12 @@ df.loc[df["city"] == "Delhi", "name"]   # filter + pick column
 
 This is where most performance is won or lost.
 
-**Vectorize — never loop row by row.**
+**Vectorize. Never loop row by row.**
 ```python
-# ❌ Slow — Python-level loop
+# ❌ Slow (Python-level loop)
 df["age_plus_1"] = [a + 1 for a in df["age"]]
 
-# ✅ Fast — vectorized (runs in C under the hood)
+# ✅ Fast, vectorized (runs in C under the hood)
 df["age_plus_1"] = df["age"] + 1
 ```
 
@@ -116,12 +116,12 @@ import numpy as np
 df["age_group"] = np.where(df["age"] >= 18, "adult", "minor")
 ```
 
-**Use `category` dtype for repeated strings** (cities, statuses, labels) — cuts memory drastically and speeds up groupby.
+**Use `category` dtype for repeated strings** (cities, statuses, labels). Cuts memory drastically and speeds up groupby.
 ```python
 df["city"] = df["city"].astype("category")
 ```
 
-**Chain methods instead of overwriting variables repeatedly** — more readable and pandas can optimize the pipeline.
+**Chain methods instead of overwriting variables repeatedly.** More readable and pandas can optimize the pipeline.
 ```python
 result = (
     df[df["age"] > 20]
